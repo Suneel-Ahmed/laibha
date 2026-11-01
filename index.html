@@ -6,166 +6,253 @@
 <title>FocusLoop</title>
 <style>
 :root{
-  --blue:#3b6cf6; --blue-d:#2a52c9; --purple:#7c4dff; --purple-l:#efe9ff;
-  --ink:#1d2340; --muted:#646b8a; --line:#e5e8f5; --bg:#f6f7fd; --white:#fff;
-  --green:#1fa971; --grad:linear-gradient(135deg,#3b6cf6 0%,#7c4dff 100%);
-  --shadow:0 8px 28px rgba(60,70,160,.10); --r:18px;
+  --bg:#ffffff; --surface:#f8fafc; --line:#e2e8f0; --line-2:#cbd5e1;
+  --ink:#0f172a; --ink-2:#334155; --muted:#64748b;
+  --primary:#4f46e5; --primary-h:#4338ca; --primary-soft:#eef2ff;
+  --violet:#7c3aed; --blue:#2563eb; --green:#059669; --green-soft:#ecfdf5;
+  --grad:linear-gradient(135deg,#2563eb,#7c3aed);
+  --r:14px; --r-lg:20px; --ease:200ms ease;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;min-height:100vh}
-button{font:inherit;cursor:pointer;border:none}
-/* nav */
-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.nav{max-width:1100px;margin:auto;display:flex;align-items:center;gap:16px;padding:12px 20px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.2rem;cursor:pointer}
-.logo{width:34px;height:34px;border-radius:10px;background:var(--grad);display:grid;place-items:center}
-.links{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
-.links button{background:none;padding:8px 12px;border-radius:10px;color:var(--muted);font-weight:600;font-size:.92rem}
-.links button:hover{background:var(--purple-l);color:var(--purple)}
-.links button.active{background:var(--purple-l);color:var(--purple)}
-.menu-btn{display:none;margin-left:auto;background:var(--purple-l);color:var(--purple);padding:8px 12px;border-radius:10px;font-weight:700}
-main{max-width:1100px;margin:auto;padding:28px 20px 60px}
-.screen{display:none;animation:fade .35s ease}
-.screen.show{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-h1{font-size:2.6rem;line-height:1.15}
-h2{font-size:1.7rem;margin-bottom:6px}
-h3{font-size:1.1rem;margin-bottom:6px}
-.sub{color:var(--muted);margin-bottom:22px}
-.card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:24px;border:1px solid var(--line)}
-.btn{background:var(--grad);color:#fff;padding:13px 26px;border-radius:14px;font-weight:700;font-size:1rem;box-shadow:0 6px 18px rgba(124,77,255,.3);transition:transform .15s}
-.btn:hover{transform:translateY(-2px)}
-.btn.ghost{background:var(--white);color:var(--purple);border:2px solid var(--purple-l);box-shadow:none}
-.btn.small{padding:9px 16px;font-size:.9rem}
-.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.grid{display:grid;gap:18px}
-.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
-/* home */
-.hero{background:var(--grad);color:#fff;border-radius:28px;padding:56px 44px;position:relative;overflow:hidden}
-.hero p{opacity:.92;font-size:1.15rem;max-width:560px;margin:14px 0 28px}
-.hero .btn{background:#fff;color:var(--purple)}
-.hero .slogan{display:inline-block;background:rgba(255,255,255,.18);padding:6px 14px;border-radius:30px;font-weight:600;font-size:.9rem;margin-bottom:18px}
-.hero .loop{position:absolute;right:-60px;top:-60px;width:340px;height:340px;border-radius:50%;border:40px solid rgba(255,255,255,.12)}
-.hero .loop2{position:absolute;right:80px;bottom:-120px;width:220px;height:220px;border-radius:50%;border:26px solid rgba(255,255,255,.08)}
-.step{display:flex;gap:14px;align-items:flex-start}
-.num{flex:0 0 36px;height:36px;border-radius:50%;background:var(--purple-l);color:var(--purple);display:grid;place-items:center;font-weight:800}
-.reminder{display:flex;gap:12px;align-items:center;background:var(--purple-l);color:#4b2fb3;padding:14px 18px;border-radius:14px;font-weight:600;margin-top:18px}
-/* forms */
-label.f{display:block;font-weight:700;margin:16px 0 8px}
-select,input[type=text]{width:100%;padding:12px 14px;border-radius:12px;border:2px solid var(--line);font:inherit;background:#fff;color:var(--ink)}
-select:focus,input:focus{outline:none;border-color:var(--purple)}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{background:#fff;border:2px solid var(--line);padding:10px 16px;border-radius:12px;font-weight:600;color:var(--ink)}
-.chip.sel{border-color:var(--purple);background:var(--purple-l);color:var(--purple)}
-.chip small{display:block;font-weight:500;color:var(--muted);font-size:.78rem}
-/* timer */
-.timer-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:start}
-.timer-wrap>.card{position:sticky;top:84px}
-.ring{position:relative;width:280px;height:280px;margin:10px auto 20px}
-.ring svg{transform:rotate(-90deg)}
-.ring .t{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
-.ring .time{font-size:3.4rem;font-weight:800;letter-spacing:1px}
-.ring .lbl{color:var(--muted);font-weight:600;font-size:.9rem}
-.goal-pill{background:var(--purple-l);color:var(--purple);padding:6px 14px;border-radius:30px;font-weight:700;font-size:.9rem;display:inline-block}
-.center{text-align:center}
-.distract-btn{background:#fff4e6;color:#b4590a;border:2px dashed #f5c48a;padding:12px 18px;border-radius:14px;font-weight:700;width:100%;margin-top:14px}
-/* distraction */
-.dcard{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:22px;text-align:left;transition:.15s;color:var(--ink)}
-.dcard:hover{border-color:var(--purple);transform:translateY(-3px);box-shadow:var(--shadow)}
-.dcard .ic{font-size:2rem}
-.dcard b{display:block;margin:8px 0 4px;font-size:1.05rem}
-.dcard span{color:var(--muted);font-size:.9rem}
-/* recovery */
-.rec-head{background:var(--grad);color:#fff;border-radius:var(--r);padding:26px}
-.tip{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
-.tip:last-child{border:none}
-.tick{flex:0 0 26px;height:26px;border-radius:8px;border:2px solid var(--purple);cursor:pointer;display:grid;place-items:center;color:#fff;font-size:.9rem}
-.tick.on{background:var(--purple)}
-/* progress */
-.stat{text-align:center}
-.stat .v{font-size:2rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.stat .k{color:var(--muted);font-weight:600;font-size:.9rem}
-.bars{display:flex;align-items:flex-end;gap:12px;height:180px;padding-top:10px}
-.bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
-.bar i{display:block;width:100%;max-width:46px;border-radius:10px 10px 4px 4px;background:var(--grad);min-height:4px}
-.bar.today i{background:linear-gradient(135deg,#1fa971,#3b6cf6)}
-.bar small{color:var(--muted);font-weight:600;font-size:.8rem}
-.bar em{font-style:normal;font-size:.75rem;font-weight:700;color:var(--ink)}
-.hbar{margin:10px 0}
-.hbar .tr{height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:4px}
-.hbar .tr span{display:block;height:100%;background:var(--grad)}
-.log li{list-style:none;display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.93rem}
-.log li:last-child{border:none}
-.badge{display:inline-block;background:#e6f7ef;color:var(--green);padding:2px 10px;border-radius:20px;font-size:.8rem;font-weight:700}
-.badge.demo{background:var(--purple-l);color:var(--purple)}
-/* tools */
-.tech{cursor:pointer}
-.tech:hover{border-color:var(--purple)}
-.sound{display:flex;align-items:center;gap:12px;padding:12px;border:2px solid var(--line);border-radius:14px;background:#fff;width:100%;text-align:left;color:var(--ink);font-weight:600}
-.sound.on{border-color:var(--purple);background:var(--purple-l);color:var(--purple)}
-input[type=range]{width:100%;accent-color:var(--purple)}
-.lock{background:linear-gradient(135deg,#1d2340,#3a2b7a);color:#fff}
-.lock .muted{color:#c9c5ef}
-.toggle{width:52px;height:30px;border-radius:30px;background:#5b5a8c;position:relative;transition:.2s;flex:0 0 52px}
-.toggle::after{content:"";position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
-.toggle.on{background:#1fa971}.toggle.on::after{left:26px}
-.todo li{list-style:none;display:flex;gap:10px;align-items:center;padding:8px 0}
-.todo li.done span{text-decoration:line-through;color:var(--muted)}
-.snd-group h4{font-size:.75rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:16px 0 8px}
-.snd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
-.compact .snd-grid{grid-template-columns:repeat(2,1fr);gap:8px}
-.snd{display:flex;gap:10px;align-items:center;padding:10px 12px;border:2px solid var(--line);border-radius:14px;background:#fff;text-align:left;color:var(--ink);transition:.15s;min-width:0}
-.snd:hover{border-color:#cbbcff;transform:translateY(-1px)}
-.snd.on{border-color:var(--purple);background:var(--purple-l)}
-.snd .ic{flex:0 0 38px;height:38px;border-radius:11px;background:var(--bg);display:grid;place-items:center;font-size:1.15rem}
-.snd.on .ic{background:var(--grad)}
-.snd .tx{flex:1;min-width:0}
-.snd b{display:block;font-size:.92rem}
-.snd small{display:block;color:var(--muted);font-size:.78rem;line-height:1.3}
-.compact .snd small{display:none}
-.compact .snd .ic{flex-basis:32px;height:32px;font-size:1rem}
-.eq{display:flex;gap:2px;align-items:flex-end;height:16px;flex:0 0 auto}
-.eq i{width:3px;background:var(--purple);border-radius:2px;animation:eq 1s infinite ease-in-out}
-.eq i:nth-child(2){animation-delay:.25s}.eq i:nth-child(3){animation-delay:.5s}.eq i:nth-child(4){animation-delay:.15s}
-@keyframes eq{0%,100%{height:4px}50%{height:16px}}
-.now-playing{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--bg);border-radius:12px;padding:10px 14px;margin-top:12px;min-height:50px;flex-wrap:wrap}
-@media(max-width:420px){.compact .snd-grid{grid-template-columns:1fr}}
-/* toast & modal */
-#toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:14px 22px;border-radius:14px;font-weight:600;box-shadow:var(--shadow);transition:.35s;z-index:60;max-width:90vw;text-align:center}
-#toast.show{transform:translateX(-50%) translateY(0)}
-.modal{position:fixed;inset:0;background:rgba(20,22,50,.5);display:none;place-items:center;z-index:50;padding:20px}
-.modal.show{display:grid}
-.modal .card{max-width:420px;text-align:center;animation:pop .35s ease}
-@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
-.big-emoji{font-size:3.4rem}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI Variable","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+svg{flex-shrink:0;display:block}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:8px}
+
+/* header */
+header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+.nav{max-width:1120px;margin:auto;display:flex;align-items:center;gap:24px;padding:0 24px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:650;font-size:1.05rem;letter-spacing:-.01em}
+.mark{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#fff}
+.links{display:flex;gap:2px;margin-left:auto}
+.links button{height:36px;padding:0 12px;border-radius:9px;color:var(--muted);font-size:.875rem;font-weight:500;transition:color var(--ease),background var(--ease)}
+.links button:hover{color:var(--ink);background:var(--surface)}
+.links button.active{color:var(--primary);background:var(--primary-soft)}
+.menu-btn{display:none;margin-left:auto;width:44px;height:44px;border-radius:10px;place-items:center}
+.menu-btn:hover{background:var(--surface)}
+
+main{flex:1;width:100%;max-width:1120px;margin:auto;padding:48px 24px 72px}
+.screen{display:none}
+.screen.show{display:block;animation:in .3s ease}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* type */
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);margin-bottom:10px}
+.eyebrow span{color:var(--muted)}
+h1{font-size:clamp(2rem,4vw,2.75rem);line-height:1.1;letter-spacing:-.03em;font-weight:700}
+h2{font-size:1.75rem;line-height:1.2;letter-spacing:-.02em;font-weight:650}
+h3{font-size:1rem;font-weight:600;letter-spacing:-.005em}
+.lead{color:var(--muted);font-size:1.0625rem;max-width:620px;margin-top:8px}
 .muted{color:var(--muted)}
-footer{text-align:center;color:var(--muted);font-size:.85rem;padding:20px}
-/* responsive */
-@media(max-width:900px){.timer-wrap>.card{position:static}.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.timer-wrap{grid-template-columns:1fr}}
-@media(max-width:760px){
-  .menu-btn{display:block}
-  .links{display:none;position:absolute;top:58px;left:0;right:0;background:#fff;flex-direction:column;padding:10px 16px;border-bottom:1px solid var(--line)}
+.small{font-size:.875rem}
+.page-head{margin-bottom:32px}
+.label{font-size:.8125rem;font-weight:600;color:var(--ink-2);margin-bottom:8px;display:block}
+
+/* layout */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.between{justify-content:space-between}
+.stack>*+*{margin-top:16px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px}
+.card.flat{background:var(--surface);border-color:transparent}
+.card-title{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.icon-box{width:36px;height:36px;border-radius:10px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;flex:0 0 36px}
+.tag{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;background:var(--primary-soft);color:var(--primary);font-size:.75rem;font-weight:600}
+.tag.green{background:var(--green-soft);color:var(--green)}
+.tag.gray{background:var(--surface);color:var(--muted);border:1px solid var(--line)}
+.divider{height:1px;background:var(--line);margin:48px 0}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:12px;font-weight:600;font-size:.9375rem;background:var(--primary);color:#fff;transition:background var(--ease),box-shadow var(--ease)}
+.btn:hover{background:var(--primary-h);box-shadow:0 4px 14px rgba(79,70,229,.25)}
+.btn.secondary{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.btn.secondary:hover{background:var(--surface);box-shadow:none;border-color:var(--line-2)}
+.btn.lg{height:52px;padding:0 28px;font-size:1rem}
+.btn.sm{height:36px;padding:0 14px;font-size:.875rem;border-radius:10px}
+
+/* home */
+.hero{padding:24px 0 8px;max-width:760px}
+.hero h1{font-size:clamp(2.75rem,7vw,4.5rem);margin:6px 0 14px}
+.hero h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tagline{font-size:1.25rem;color:var(--ink-2);max-width:600px}
+.slogan{margin:24px 0 32px;padding-left:16px;border-left:3px solid var(--violet);font-size:1.0625rem;font-weight:500;color:var(--ink)}
+.reminder{display:flex;align-items:center;gap:12px;margin-top:40px;padding:14px 18px;border-radius:var(--r);background:var(--surface);color:var(--ink-2);font-size:.9375rem}
+.reminder .icon-box{width:32px;height:32px;flex-basis:32px}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}
+.screen-list{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.screen-item{display:flex;align-items:center;gap:16px;width:100%;padding:16px 20px;text-align:left;border-bottom:1px solid var(--line);transition:background var(--ease)}
+.screen-item:last-child{border-bottom:none}
+.screen-item:hover{background:var(--surface)}
+.screen-item .n{font-variant-numeric:tabular-nums;font-size:.8125rem;font-weight:600;color:var(--muted);width:24px}
+.screen-item .t{flex:1}
+.screen-item .t b{display:block;font-weight:600}
+.screen-item .t small{color:var(--muted);font-size:.875rem}
+.screen-item .go{color:var(--line-2);transition:color var(--ease),transform var(--ease)}
+.screen-item:hover .go{color:var(--primary);transform:translateX(3px)}
+.feature{display:flex;flex-direction:column;gap:12px;text-align:left;padding:20px;border:1px solid var(--line);border-radius:var(--r-lg);transition:border-color var(--ease),background var(--ease)}
+.feature:hover{border-color:#c7d2fe;background:#fcfcff}
+.feature p{color:var(--muted);font-size:.875rem;line-height:1.5}
+
+/* form */
+select,input[type=text]{width:100%;height:46px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);transition:border-color var(--ease),box-shadow var(--ease)}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2364748b' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;cursor:pointer}
+select:hover,input[type=text]:hover{border-color:var(--line-2)}
+select:focus,input[type=text]:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+.field+.field{margin-top:20px}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.opt{display:flex;flex-direction:column;align-items:flex-start;padding:12px 14px;min-height:44px;border:1px solid var(--line);border-radius:12px;text-align:left;transition:border-color var(--ease),background var(--ease)}
+.opt:hover{border-color:var(--line-2)}
+.opt.sel{border-color:var(--primary);background:var(--primary-soft)}
+.opt b{font-weight:600;font-size:.9375rem}
+.opt small{color:var(--muted);font-size:.75rem}
+.opt.sel small{color:var(--primary)}
+.tech{display:flex;gap:14px;align-items:flex-start;width:100%;padding:16px;border:1px solid var(--line);border-radius:var(--r);text-align:left;transition:border-color var(--ease),background var(--ease)}
+.tech:hover{border-color:var(--line-2);background:var(--surface)}
+.tech.sel{border-color:var(--primary);background:var(--primary-soft)}
+.tech b{font-weight:600;font-size:.9375rem}
+.tech p{color:var(--muted);font-size:.8125rem;line-height:1.45;margin-top:2px}
+
+/* timer */
+.timer-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}
+.timer-card{position:sticky;top:88px;text-align:center;padding:32px 24px}
+.ring{position:relative;width:272px;height:272px;margin:24px auto}
+.ring svg{transform:rotate(-90deg);width:100%;height:100%}
+.ring .t{position:absolute;inset:0;display:grid;place-items:center}
+.time{font-size:3.75rem;font-weight:300;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+.tlabel{color:var(--muted);font-size:.875rem;margin-top:8px}
+#arc{transition:stroke-dashoffset 1s linear}
+.distract-btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;height:44px;padding:0 18px;border-radius:12px;color:var(--muted);font-weight:500;font-size:.9375rem;transition:color var(--ease),background var(--ease)}
+.distract-btn:hover{color:#b45309;background:#fffbeb}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{height:36px;min-width:44px;padding:0 14px;border:1px solid var(--line);border-radius:10px;font-size:.875rem;font-weight:500;transition:border-color var(--ease),background var(--ease)}
+.chip:hover{border-color:var(--line-2)}
+.chip.sel{border-color:var(--primary);background:var(--primary-soft);color:var(--primary)}
+
+/* distraction */
+.dcard{display:flex;flex-direction:column;gap:14px;padding:24px;border:1px solid var(--line);border-radius:var(--r-lg);text-align:left;transition:border-color var(--ease),background var(--ease)}
+.dcard:hover{border-color:var(--primary);background:#fcfcff}
+.dcard .icon-box{width:44px;height:44px;flex-basis:44px;border-radius:12px}
+.dcard b{font-size:1.0625rem;font-weight:600}
+.dcard span{color:var(--muted);font-size:.875rem}
+.dcard .go{margin-top:auto;color:var(--primary);font-size:.875rem;font-weight:600;display:flex;align-items:center;gap:6px}
+
+/* recovery */
+.tip{display:flex;gap:14px;align-items:flex-start;width:100%;padding:14px 0;border-bottom:1px solid var(--line);text-align:left}
+.tip:last-child{border:none;padding-bottom:0}
+.tick{flex:0 0 22px;height:22px;margin-top:2px;border-radius:7px;border:1.5px solid var(--line-2);display:grid;place-items:center;color:#fff;transition:background var(--ease),border-color var(--ease)}
+.tick svg{stroke-width:3;opacity:0}.tip.on .tick svg,.todo li.done .tick svg{opacity:1}
+.tip.on .tick,.todo li.done .tick{background:var(--primary);border-color:var(--primary)}
+.tip.on span{color:var(--muted);text-decoration:line-through}
+.win{background:var(--green-soft);border-color:transparent}
+.win .icon-box{background:#d1fae5;color:var(--green)}
+.empty{text-align:center;padding:56px 24px}
+.empty .icon-box{margin:0 auto 16px;width:48px;height:48px}
+
+/* progress */
+.stat .v{font-size:2rem;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:6px}
+.stat .k{color:var(--muted);font-size:.8125rem;font-weight:500;display:flex;align-items:center;gap:8px}
+.encourage{display:flex;gap:12px;align-items:center;padding:16px 20px;border-radius:var(--r);background:var(--primary-soft);color:#3730a3;font-weight:500;margin-bottom:16px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:200px;margin-top:20px}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
+.bar i{display:block;width:100%;max-width:40px;border-radius:8px 8px 3px 3px;background:#c7d2fe;min-height:3px;transition:background var(--ease)}
+.bar:hover i{background:var(--primary)}
+.bar.today i{background:var(--grad)}
+.bar small{color:var(--muted);font-size:.75rem;font-weight:500}
+.bar em{font-style:normal;font-size:.75rem;font-weight:600;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.hbar+.hbar{margin-top:14px}
+.hbar .top{display:flex;justify-content:space-between;align-items:center;font-size:.875rem;margin-bottom:6px}
+.hbar .top span{display:flex;align-items:center;gap:8px;color:var(--ink-2)}
+.hbar .tr{height:6px;border-radius:6px;background:var(--surface);overflow:hidden}
+.hbar .tr i{display:block;height:100%;background:var(--primary);border-radius:6px}
+.log li{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:.9375rem}
+.log li:last-child{border:none}
+
+/* sounds */
+.snd-group h4{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin:20px 0 10px}
+.snd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.compact .snd-grid{grid-template-columns:repeat(2,1fr)}
+.snd{display:flex;gap:12px;align-items:center;min-height:44px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-align:left;transition:border-color var(--ease),background var(--ease);min-width:0}
+.snd:hover{border-color:var(--line-2);background:var(--surface)}
+.snd.on{border-color:var(--primary);background:var(--primary-soft)}
+.snd .ic{flex:0 0 34px;height:34px;border-radius:9px;background:var(--surface);color:var(--ink-2);display:grid;place-items:center;transition:background var(--ease),color var(--ease)}
+.snd.on .ic{background:var(--primary);color:#fff}
+.snd .tx{flex:1;min-width:0}
+.snd b{display:block;font-size:.875rem;font-weight:600}
+.snd small{display:block;color:var(--muted);font-size:.75rem;line-height:1.35}
+.compact .snd small{display:none}
+.compact .snd .ic{flex-basis:30px;height:30px}
+.eq{display:flex;gap:2px;align-items:flex-end;height:14px}
+.eq i{width:3px;background:var(--primary);border-radius:2px;animation:eq 1s infinite ease-in-out}
+.eq i:nth-child(2){animation-delay:.25s}.eq i:nth-child(3){animation-delay:.5s}.eq i:nth-child(4){animation-delay:.15s}
+@keyframes eq{0%,100%{height:3px}50%{height:14px}}
+.now-playing{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;min-height:52px;padding:8px 8px 8px 16px;margin-top:16px;border-radius:12px;background:var(--surface);font-size:.875rem}
+input[type=range]{width:100%;height:24px;accent-color:var(--primary);cursor:pointer}
+.vol{display:flex;align-items:center;gap:12px;color:var(--muted);margin-top:14px}
+
+/* tools */
+.todo{margin-top:12px}
+.todo li{list-style:none;display:flex;gap:12px;align-items:center;min-height:44px;border-bottom:1px solid var(--line)}
+.todo li:last-child{border:none}
+.todo li span{flex:1;font-size:.9375rem}
+.todo li.done span{text-decoration:line-through;color:var(--muted)}
+.todo .tick{margin:0;cursor:pointer}
+.icon-btn{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;color:var(--muted);transition:background var(--ease),color var(--ease)}
+.icon-btn:hover{background:var(--surface);color:var(--ink)}
+.lock-card{border-color:var(--line)}
+.switch{position:relative;width:44px;height:26px;border-radius:999px;background:var(--line-2);transition:background var(--ease);flex:0 0 44px}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform var(--ease)}
+.switch.on{background:var(--primary)}.switch.on::after{transform:translateX(18px)}
+.lock-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;padding-top:24px;border-top:1px solid var(--line)}
+.lock-steps b{font-size:.875rem;font-weight:600;display:block;margin-bottom:4px}
+.lock-steps p{font-size:.875rem;color:var(--muted)}
+
+/* toast, modal */
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-size:.875rem;font-weight:500;transition:opacity var(--ease),transform var(--ease);z-index:60;max-width:calc(100vw - 32px);text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.4);display:none;place-items:center;z-index:50;padding:16px}
+.modal.show{display:grid}
+.modal .card{max-width:400px;width:100%;text-align:center;padding:32px;box-shadow:0 24px 48px rgba(15,23,42,.18);animation:in .25s ease}
+.modal .icon-box{width:52px;height:52px;margin:0 auto 16px;border-radius:14px;background:var(--green-soft);color:var(--green)}
+
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer .in{max-width:1120px;margin:auto;padding:20px 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media(max-width:1024px){
+  .links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:2px;padding:8px 16px 16px;background:#fff;border-bottom:1px solid var(--line)}
   .links.open{display:flex}
-  h1{font-size:2rem}.hero{padding:36px 24px}
-  .g2,.g3{grid-template-columns:1fr}
-  .ring{width:240px;height:240px}.ring svg{width:240px;height:240px}.ring .time{font-size:2.8rem}
+  .links button{height:44px;text-align:left}
+  .menu-btn{display:grid}
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .timer-wrap{grid-template-columns:1fr}.timer-card{position:static}
 }
+@media(max-width:720px){
+  main{padding:32px 16px 56px}.nav{padding:0 16px}
+  .g2,.g3{grid-template-columns:1fr}
+  .seg{grid-template-columns:repeat(2,1fr)}
+  .lock-steps{grid-template-columns:1fr;gap:16px}
+  .ring{width:236px;height:236px}.time{font-size:3.1rem}
+}
+@media(max-width:420px){.g4{grid-template-columns:1fr}.compact .snd-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 
 <header>
   <div class="nav">
-    <div class="brand" onclick="go('home')">
-      <div class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-3-6.2"/><path d="M17 2v4.5h-4.5"/></svg></div>
-      FocusLoop
-    </div>
-    <button class="menu-btn" onclick="document.querySelector('.links').classList.toggle('open')">Menu</button>
-    <nav class="links">
+    <button class="brand" data-go="home" aria-label="FocusLoop home">
+      <span class="mark" data-i="loop" data-s="18"></span>FocusLoop
+    </button>
+    <button class="menu-btn" aria-label="Open menu" onclick="document.querySelector('.links').classList.toggle('open')" data-i="menu"></button>
+    <nav class="links" aria-label="Main">
       <button data-go="home">Home</button>
-      <button data-go="goal">Set Goal</button>
-      <button data-go="timer">Timer</button>
+      <button data-go="goal">Study Goal</button>
+      <button data-go="timer">Focus Timer</button>
       <button data-go="distract">Distraction Check</button>
+      <button data-go="recover">Recovery</button>
       <button data-go="progress">Progress</button>
       <button data-go="tools">Study Tools</button>
     </nav>
@@ -174,282 +261,374 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:20px}
 
 <main>
 
-<!-- HOME -->
+<!-- 01 HOME PAGE -->
 <section class="screen" id="home">
   <div class="hero">
-    <div class="loop"></div><div class="loop2"></div>
-    <span class="slogan">Distraction happens. Giving up doesn't have to.</span>
-    <h1>FocusLoop</h1>
-    <p>A friendly study recovery system. Understand why you get distracted, recover quickly, and get back to studying without feeling bad about it.</p>
+    <div class="eyebrow">01 <span>Home Page</span></div>
+    <h1><span class="g">FocusLoop</span></h1>
+    <p class="tagline">A Friendly Study Recovery System for Students Aged 16–18.</p>
+    <p class="slogan">“Distraction happens. Giving up doesn't have to.”</p>
     <div class="row">
-      <button class="btn" onclick="go('goal')">Start Studying</button>
-      <button class="btn ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)" onclick="go('progress')">See my progress</button>
+      <button class="btn lg" data-go="goal">Start Studying <span data-i="arrow" data-s="18"></span></button>
+      <button class="btn lg secondary" data-go="progress">View progress</button>
     </div>
   </div>
 
-  <div class="reminder"><span style="font-size:1.4rem">💡</span><span id="homeReminder"></span></div>
+  <div class="reminder"><span class="icon-box" data-i="bell" data-s="16"></span><span id="homeReminder"></span></div>
 
-  <h2 style="margin-top:34px">How the loop works</h2>
-  <p class="sub">Four simple steps. Repeat as many times as you need.</p>
-  <div class="grid g4">
-    <div class="card step"><div class="num">1</div><div><h3>Set a goal</h3><p class="muted">Pick a subject, topic and how long you want to study.</p></div></div>
-    <div class="card step"><div class="num">2</div><div><h3>Focus</h3><p class="muted">Start the timer and work on one thing at a time.</p></div></div>
-    <div class="card step"><div class="num">3</div><div><h3>Notice</h3><p class="muted">Got distracted? Tell us why. No judgement.</p></div></div>
-    <div class="card step"><div class="num">4</div><div><h3>Recover</h3><p class="muted">Get a quick tip that fits your situation, then jump back in.</p></div></div>
+  <div class="divider"></div>
+
+  <div class="grid g2" style="gap:48px;align-items:start">
+    <div>
+      <div class="eyebrow">Main idea</div>
+      <h2>Understand, recover, return.</h2>
+      <p class="lead">FocusLoop helps students understand why they get distracted, recover from distractions, and return to studying without feeling discouraged.</p>
+    </div>
+    <div>
+      <div class="section-head"><h3>Main Website Screens</h3><span class="tag gray">6 screens</span></div>
+      <div class="screen-list" id="screenList"></div>
+    </div>
   </div>
+
+  <div class="divider"></div>
+
+  <div class="section-head">
+    <div><div class="eyebrow">What's inside</div><h2>Special Features</h2></div>
+  </div>
+  <div class="grid g4" id="featureGrid"></div>
 </section>
 
-<!-- GOAL -->
+<!-- 02 STUDY GOAL SETTING -->
 <section class="screen" id="goal">
-  <h2>Set your study goal</h2>
-  <p class="sub">Small, clear goals are easier to start. You can always do more later.</p>
-  <div class="grid g2">
+  <div class="page-head">
+    <div class="eyebrow">02 <span>Main Website Screen</span></div>
+    <h1>Study Goal Setting</h1>
+    <p class="lead">Select your subject, topic, and study duration. Small, clear goals are easier to start.</p>
+  </div>
+  <div class="grid g2" style="align-items:start">
     <div class="card">
-      <label class="f" style="margin-top:0">Subject</label>
-      <select id="subject">
-        <option>Mathematics</option><option>Physics</option><option>Chemistry</option><option>Biology</option>
-        <option>English</option><option>Computer Science</option><option>History</option><option>Economics</option><option>Other</option>
-      </select>
-      <label class="f">Topic</label>
-      <input type="text" id="topic" placeholder="e.g. Quadratic equations, Chapter 4 notes">
-      <label class="f">Study duration</label>
-      <div class="chips" id="durChips">
-        <button class="chip" data-min="10">10 min<small>Quick sprint</small></button>
-        <button class="chip" data-min="25">25 min<small>Pomodoro</small></button>
-        <button class="chip" data-min="45">45 min<small>Steady</small></button>
-        <button class="chip" data-min="60">60 min<small>Deep work</small></button>
+      <div class="field">
+        <label class="label" for="subject">Subject</label>
+        <select id="subject">
+          <option>Mathematics</option><option>Physics</option><option>Chemistry</option><option>Biology</option>
+          <option>English</option><option>Computer Science</option><option>History</option><option>Economics</option><option>Other</option>
+        </select>
       </div>
-      <div style="margin-top:24px" class="row">
-        <button class="btn" onclick="startFromGoal()">Start Focus Timer</button>
+      <div class="field">
+        <label class="label" for="topic">Topic</label>
+        <input type="text" id="topic" placeholder="e.g. Quadratic equations">
+      </div>
+      <div class="field">
+        <span class="label">Study duration</span>
+        <div class="seg" id="durOpts"></div>
+      </div>
+      <div class="field" style="margin-top:28px">
+        <button class="btn lg" style="width:100%" onclick="startFromGoal()">Start Focus Timer <span data-i="arrow" data-s="18"></span></button>
       </div>
     </div>
-    <div class="card">
-      <h3>Not sure how long?</h3>
-      <p class="muted" style="margin-bottom:14px">Try one of these study techniques. Tap one to use it.</p>
-      <div class="grid" id="techListGoal"></div>
+    <div class="card flat">
+      <div class="card-title"><span class="icon-box" data-i="layers" data-s="18"></span><h3>Different Study Durations and Techniques</h3></div>
+      <p class="muted small" style="margin:6px 0 16px">Not sure how long? Pick a technique.</p>
+      <div class="stack" id="techGoal"></div>
     </div>
   </div>
 </section>
 
-<!-- TIMER -->
+<!-- 03 FOCUS TIMER -->
 <section class="screen" id="timer">
+  <div class="page-head">
+    <div class="eyebrow">03 <span>Main Website Screen</span></div>
+    <h1>Focus Timer</h1>
+    <p class="lead">Start, pause, and reset your study timer.</p>
+  </div>
   <div class="timer-wrap">
-    <div class="card center">
-      <span class="goal-pill" id="goalPill">No goal set yet</span>
+    <div class="card timer-card">
+      <span class="tag" id="goalPill">Quick session</span>
       <div class="ring">
-        <svg width="280" height="280" viewBox="0 0 280 280">
-          <defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b6cf6"/><stop offset="1" stop-color="#7c4dff"/></linearGradient></defs>
-          <circle cx="140" cy="140" r="122" stroke="#eceefa" stroke-width="18" fill="none"/>
-          <circle id="arc" cx="140" cy="140" r="122" stroke="url(#gr)" stroke-width="18" fill="none" stroke-linecap="round"/>
+        <svg viewBox="0 0 280 280">
+          <defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
+          <circle cx="140" cy="140" r="126" stroke="#f1f5f9" stroke-width="8" fill="none"/>
+          <circle id="arc" cx="140" cy="140" r="126" stroke="url(#gr)" stroke-width="8" fill="none" stroke-linecap="round"/>
         </svg>
-        <div class="t"><div><div class="time" id="time">25:00</div><div class="lbl" id="tlabel">Ready when you are</div></div></div>
+        <div class="t"><div><div class="time" id="time">25:00</div><div class="tlabel" id="tlabel">Ready when you are</div></div></div>
       </div>
       <div class="row" style="justify-content:center">
-        <button class="btn" id="startBtn" onclick="toggleTimer()">Start</button>
-        <button class="btn ghost" onclick="resetTimer()">Reset</button>
+        <button class="btn lg" id="startBtn" onclick="toggleTimer()" style="min-width:140px"></button>
+        <button class="btn lg secondary" onclick="resetTimer()"><span data-i="reset" data-s="18"></span>Reset</button>
       </div>
-      <button class="distract-btn" onclick="gotDistracted()">I got distracted 😅</button>
+      <button class="distract-btn" onclick="gotDistracted()"><span data-i="zap" data-s="16"></span>I got distracted</button>
     </div>
-    <div class="grid">
-      <div class="card">
-        <h3>Friendly reminder</h3>
-        <p id="timerReminder" class="muted" style="font-size:1.05rem"></p>
+    <div class="stack">
+      <div class="card flat">
+        <div class="card-title"><span class="icon-box" data-i="bell" data-s="18"></span><h3>Friendly, Positive Reminders</h3></div>
+        <p id="timerReminder" style="margin-top:10px;color:var(--ink-2)"></p>
       </div>
       <div class="card">
-        <h3>Focus sounds</h3>
-        <p class="muted" style="margin-bottom:6px">Background sound to block out noise. Works offline.</p>
+        <div class="card-title"><span class="icon-box" data-i="layers" data-s="18"></span><h3>Study Duration</h3></div>
+        <div class="chips" id="quickDur" style="margin-top:12px"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon-box" data-i="music" data-s="18"></span><h3>Focus Sounds</h3></div>
         <div class="now-playing"></div>
-        <label class="f" style="margin-top:8px">Volume</label>
-        <input type="range" min="0" max="100" value="60" class="vol-s">
+        <div class="vol"><span data-i="volume" data-s="18"></span><input type="range" min="0" max="100" value="60" class="vol-s" aria-label="Volume"></div>
         <div class="sound-panel compact"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 DISTRACTION CHECK -->
+<section class="screen" id="distract">
+  <div class="page-head">
+    <div class="eyebrow">04 <span>Main Website Screen</span></div>
+    <h1>Distraction Check</h1>
+    <p class="lead">It's normal. Everyone gets distracted. Pick what pulled you away and we'll help you get back on track.</p>
+  </div>
+  <div class="grid g3" id="dList"></div>
+</section>
+
+<!-- 05 RECOVERY SUGGESTIONS -->
+<section class="screen" id="recover">
+  <div class="page-head">
+    <div class="eyebrow">05 <span>Main Website Screen</span></div>
+    <h1>Recovery Suggestions</h1>
+    <p class="lead" id="recLead">Helpful suggestions based on the distraction you selected.</p>
+  </div>
+  <div id="recEmpty" class="card flat empty">
+    <span class="icon-box" data-i="heart" data-s="22"></span>
+    <h3>No distraction selected yet</h3>
+    <p class="muted small" style="margin:6px 0 20px">Choose what distracted you to get personalized suggestions.</p>
+    <button class="btn" data-go="distract">Go to Distraction Check</button>
+  </div>
+  <div id="recBody" style="display:none">
+    <div class="grid g2" style="align-items:start">
       <div class="card">
-        <h3>Change duration</h3>
-        <div class="chips" id="quickDur">
-          <button class="chip" data-min="5">5</button><button class="chip" data-min="10">10</button><button class="chip" data-min="25">25</button>
-          <button class="chip" data-min="45">45</button><button class="chip" data-min="60">60</button>
+        <div class="row" style="gap:14px;margin-bottom:8px">
+          <span class="icon-box" id="recIcon" style="width:44px;height:44px;flex-basis:44px;border-radius:12px"></span>
+          <div><span class="tag">Personalized Recovery Suggestions</span><h2 id="recTitle" style="font-size:1.375rem;margin-top:6px"></h2></div>
+        </div>
+        <p class="muted" id="recMsg" style="margin-bottom:8px"></p>
+        <div id="recTips"></div>
+      </div>
+      <div class="stack">
+        <div class="card flat">
+          <h3>Quick fix</h3>
+          <p class="muted small" id="recActionText" style="margin:4px 0 16px"></p>
+          <button class="btn sm" id="recActionBtn"></button>
+        </div>
+        <div class="card win">
+          <div class="card-title"><span class="icon-box" data-i="sparkle" data-s="18"></span><h3>Small-Win Encouragement</h3></div>
+          <p id="recWin" style="margin-top:8px;color:#065f46"></p>
+        </div>
+        <div class="row">
+          <button class="btn lg" onclick="backToStudy()">Back to studying <span data-i="arrow" data-s="18"></span></button>
+          <button class="btn lg secondary" data-go="distract">Choose another</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DISTRACTION -->
-<section class="screen" id="distract">
-  <h2>What pulled you away?</h2>
-  <p class="sub">It's normal. Everyone gets distracted. Pick the closest reason and we'll help you get back on track.</p>
-  <div class="grid g3" id="dList"></div>
-</section>
-
-<!-- RECOVERY -->
-<section class="screen" id="recover">
-  <div class="rec-head">
-    <div style="font-size:2.4rem" id="recIcon"></div>
-    <h2 id="recTitle"></h2>
-    <p id="recMsg" style="opacity:.92"></p>
-  </div>
-  <div class="grid g2" style="margin-top:18px">
-    <div class="card">
-      <h3>Try these recovery steps</h3>
-      <p class="muted" style="font-size:.9rem">Tick them off as you go.</p>
-      <div id="recTips"></div>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <h3>Quick fix</h3>
-        <p class="muted" id="recActionText" style="margin-bottom:14px"></p>
-        <button class="btn small" id="recActionBtn"></button>
-      </div>
-      <div class="card">
-        <h3>Small win 🌱</h3>
-        <p class="muted" id="recWin"></p>
-      </div>
-      <div class="row">
-        <button class="btn" onclick="backToStudy()">Back to studying</button>
-        <button class="btn ghost" onclick="go('distract')">Pick another reason</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROGRESS -->
+<!-- 06 PROGRESS PAGE -->
 <section class="screen" id="progress">
-  <h2>Your progress</h2>
-  <p class="sub"><span class="badge demo">Demo data</span> Sample week shown for demonstration. Sessions you finish today are added on top.</p>
-  <div class="card" style="margin-bottom:18px;background:var(--purple-l);border:none">
-    <b style="color:#4b2fb3" id="encourage"></b>
+  <div class="page-head">
+    <div class="row between" style="align-items:flex-end">
+      <div>
+        <div class="eyebrow">06 <span>Main Website Screen</span></div>
+        <h1>Progress Page</h1>
+        <p class="lead">Simple Progress Tracking: study time, completed sessions, and encouraging messages.</p>
+      </div>
+      <span class="tag gray">Demonstration data</span>
+    </div>
   </div>
+  <div class="encourage"><span data-i="sparkle" data-s="18"></span><span id="encourage"></span></div>
   <div class="grid g4">
-    <div class="card stat"><div class="v" id="sTime"></div><div class="k">Study time this week</div></div>
-    <div class="card stat"><div class="v" id="sSessions"></div><div class="k">Completed sessions</div></div>
-    <div class="card stat"><div class="v" id="sRecover"></div><div class="k">Times you bounced back</div></div>
-    <div class="card stat"><div class="v" id="sStreak"></div><div class="k">Day streak</div></div>
+    <div class="card stat"><div class="k"><span data-i="timer" data-s="16"></span>Study time</div><div class="v" id="sTime"></div></div>
+    <div class="card stat"><div class="k"><span data-i="check" data-s="16"></span>Completed sessions</div><div class="v" id="sSessions"></div></div>
+    <div class="card stat"><div class="k"><span data-i="heart" data-s="16"></span>Recoveries</div><div class="v" id="sRecover"></div></div>
+    <div class="card stat"><div class="k"><span data-i="flame" data-s="16"></span>Day streak</div><div class="v" id="sStreak"></div></div>
   </div>
-  <div class="grid g2" style="margin-top:18px">
-    <div class="card">
-      <h3>Minutes studied per day</h3>
-      <div class="bars" id="bars"></div>
-    </div>
-    <div class="card">
-      <h3>What distracts you most</h3>
-      <p class="muted" style="font-size:.9rem">Knowing your pattern is the first step to fixing it.</p>
-      <div id="dStats"></div>
-    </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h3>Minutes studied this week</h3><div class="bars" id="bars"></div></div>
+    <div class="card"><h3>Distraction pattern</h3><p class="muted small" style="margin-bottom:18px">Knowing your pattern is the first step.</p><div id="dStats"></div></div>
   </div>
-  <div class="card" style="margin-top:18px">
-    <h3>Recent sessions</h3>
-    <ul class="log" id="log"></ul>
-  </div>
+  <div class="card" style="margin-top:16px"><h3 style="margin-bottom:4px">Recent sessions</h3><ul class="log" id="log"></ul></div>
 </section>
 
-<!-- TOOLS -->
+<!-- 07 STUDY TOOLS SECTION -->
 <section class="screen" id="tools">
-  <h2>Study tools</h2>
-  <p class="sub">Techniques, sounds and helpers to make studying easier.</p>
+  <div class="page-head">
+    <div class="eyebrow">07 <span>Special Feature</span></div>
+    <h1>Study Tools Section</h1>
+    <p class="lead">Techniques, focus sounds, and helpers that make studying easier.</p>
+  </div>
 
-  <h3>Study techniques</h3>
-  <div class="grid g4" id="techListTools" style="margin-bottom:26px"></div>
+  <div class="card-title" style="margin-bottom:14px"><span class="icon-box" data-i="layers" data-s="18"></span><h3>Different Study Durations and Techniques</h3></div>
+  <div class="grid g4" id="techTools" style="margin-bottom:16px"></div>
 
-  <div class="card" style="margin-bottom:18px">
-    <div class="row" style="justify-content:space-between;align-items:flex-start">
-      <div><h3>Focus sounds</h3><p class="muted">14 studio-style soundscapes, generated live in your browser. No internet needed. Headphones recommended.</p></div>
-      <div style="min-width:220px"><label class="f" style="margin-top:0">Volume</label><input type="range" min="0" max="100" value="60" class="vol-s"></div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="row between" style="align-items:flex-start">
+      <div>
+        <div class="card-title"><span class="icon-box" data-i="music" data-s="18"></span><h3>Focus Sounds Option</h3></div>
+        <p class="muted small" style="margin-top:6px">14 soundscapes generated in your browser. Works offline. Headphones recommended.</p>
+      </div>
+      <div class="vol" style="min-width:220px;margin-top:0"><span data-i="volume" data-s="18"></span><input type="range" min="0" max="100" value="60" class="vol-s" aria-label="Volume"></div>
     </div>
     <div class="now-playing"></div>
     <div class="sound-panel"></div>
   </div>
-  <div class="grid g2">
-    <div class="card">
-      <h3>Break it down</h3>
-      <p class="muted" style="margin-bottom:10px">Big task feels scary? Split it into tiny steps.</p>
-      <div class="row" style="flex-wrap:nowrap">
-        <input type="text" id="todoIn" placeholder="e.g. Read page 12 to 14">
-        <button class="btn small" onclick="addTodo()">Add</button>
-      </div>
-      <ul class="todo" id="todo" style="margin-top:10px"></ul>
-    </div>
-  </div>
 
-  <div class="card lock" style="margin-top:18px">
-    <div class="row" style="justify-content:space-between">
-      <div>
-        <h3>🔒 Focus Lock</h3>
-        <p class="muted">Focus Lock would block distracting apps and sites (Instagram, TikTok, YouTube, games) while your timer is running.</p>
+  <div class="grid g2" style="align-items:start">
+    <div class="card">
+      <div class="card-title"><span class="icon-box" data-i="list" data-s="18"></span><h3>Break It Down</h3></div>
+      <p class="muted small" style="margin:6px 0 14px">Big task feels heavy? Split it into tiny steps.</p>
+      <div class="row" style="flex-wrap:nowrap;gap:8px">
+        <input type="text" id="todoIn" placeholder="e.g. Read pages 12 to 14" aria-label="New step">
+        <button class="btn" onclick="addTodo()">Add</button>
       </div>
-      <div class="row"><span id="lockState">Off</span><div class="toggle" id="lockToggle"></div></div>
+      <ul class="todo" id="todo"></ul>
     </div>
-    <div class="grid g3" style="margin-top:16px">
-      <div><b>How it works</b><p class="muted">When you start the timer, chosen apps are paused until the session ends.</p></div>
-      <div><b>Emergency unlock</b><p class="muted">You can still unlock, but FocusLoop asks you to wait 30 seconds first.</p></div>
-      <div><b>Prototype note</b><p class="muted">This is an info demo only. Real app blocking is planned for a future version.</p></div>
+    <div class="card lock-card" id="lockCard">
+      <div class="row between" style="align-items:flex-start;flex-wrap:nowrap">
+        <div class="card-title"><span class="icon-box" data-i="lock" data-s="18"></span><h3>Focus Lock Information</h3></div>
+        <div class="row" style="gap:10px;flex-wrap:nowrap"><span class="small muted" id="lockState">Off</span><button class="switch" id="lockToggle" role="switch" aria-checked="false" aria-label="Focus Lock demo"></button></div>
+      </div>
+      <p class="muted small" style="margin-top:8px">Focus Lock would pause distracting apps and sites (Instagram, TikTok, YouTube, games) while the timer runs.</p>
+      <div class="lock-steps" style="grid-template-columns:1fr;gap:14px">
+        <div><b>How it works</b><p>Starting the timer pauses your chosen apps until the session ends.</p></div>
+        <div><b>Emergency unlock</b><p>You can still unlock, after a short 30 second pause to think.</p></div>
+        <div><b>Prototype note</b><p>Information only. Real app blocking is planned for a future version.</p></div>
+      </div>
     </div>
   </div>
 </section>
 
 </main>
-<footer>FocusLoop prototype · Distraction happens. Giving up doesn't have to.</footer>
 
-<div id="toast"></div>
-<div class="modal" id="winModal">
+<footer><div class="in"><span>FocusLoop · Working prototype</span><span>Distraction happens. Giving up doesn't have to.</span></div></footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<div class="modal" id="winModal" role="dialog" aria-modal="true" aria-labelledby="winTitle">
   <div class="card">
-    <div class="big-emoji">🎉</div>
-    <h2>Session complete!</h2>
-    <p class="muted" id="winMsg" style="margin:8px 0 20px"></p>
+    <span class="icon-box" data-i="sparkle" data-s="24"></span>
+    <h2 id="winTitle">Session complete</h2>
+    <p class="muted" id="winMsg" style="margin:8px 0 24px"></p>
     <div class="row" style="justify-content:center">
       <button class="btn" onclick="closeWin('progress')">See progress</button>
-      <button class="btn ghost" onclick="closeWin('timer')">Go again</button>
+      <button class="btn secondary" onclick="closeWin('timer')">Go again</button>
     </div>
   </div>
 </div>
 
 <script>
-/* ---------- data ---------- */
+/* ---------- icons (inline SVG, no emoji) ---------- */
+const I={
+loop:'<path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4.5h-4.5"/>',
+menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',
+home:'<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/>',
+target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>',
+zap:'<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',
+heart:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/>',
+chart:'<path d="M3 3v18h18"/><path d="M8 16v-3M13 16V8M18 16v-6"/>',
+grid:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+phone:'<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/>',
+moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+help:'<circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4"/><path d="M12 17.5h.01"/>',
+volume:'<path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/>',
+meh:'<circle cx="12" cy="12" r="9"/><path d="M8 15h8M9 9.5h.01M15 9.5h.01"/>',
+lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
+sparkle:'<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/>',
+layers:'<path d="M12 2 2 7l10 5 10-5z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/>',
+music:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+check:'<path d="M20 6 9 17l-5-5"/>',
+play:'<path d="M7 4v16l13-8z"/>',
+pause:'<path d="M8 4v16M16 4v16"/>',
+reset:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>',
+arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+rain:'<path d="M20 16.6A5 5 0 0 0 18 7h-1.3A8 8 0 1 0 4 15.3"/><path d="M8 19v2M12 17v4M16 19v2"/>',
+storm:'<path d="M20 16.6A5 5 0 0 0 18 7h-1.3A8 8 0 1 0 4 15.3"/><path d="m13 12-3 5h4l-3 5"/>',
+waves:'<path d="M2 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>',
+tree:'<path d="M12 22v-5"/><path d="M12 2 6 10h3l-4 7h14l-4-7h3z"/>',
+droplet:'<path d="M12 2.5s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+wind:'<path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h16a3 3 0 1 1-3 3"/><path d="M3 16h7"/>',
+flame:'<path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-7 1 2 2 3 3 3 0-3-1-5 0-8z"/>',
+headphones:'<path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/>',
+sine:'<path d="M2 12c1.5-5 3.5-5 5 0s3.5 5 5 0 3.5-5 5 0 3.5 5 5 0"/>',
+orbit:'<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/>',
+bars:'<path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/>',
+list:'<path d="M10 6h11M10 12h11M10 18h11"/><path d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"/>',
+x:'<path d="M18 6 6 18M6 6l12 12"/>'
+};
+function ic(n,s=20){return `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]||''}</svg>`}
+function paintIcons(root=document){root.querySelectorAll('[data-i]').forEach(e=>{if(!e.dataset.done){e.innerHTML=ic(e.dataset.i,+e.dataset.s||20)+e.innerHTML;e.dataset.done=1}})}
+
+/* ---------- content ---------- */
 const reminders=[
   "You don't need to be perfect. You just need to start.",
-  "Five focused minutes still count. Really.",
+  "Five focused minutes still count.",
   "Getting distracted isn't failing. Coming back is the skill.",
   "Drink some water. Your brain works better hydrated.",
   "One topic at a time. You've got this.",
   "Progress, not perfection.",
-  "Small steps every day add up to big results.",
-  "Phone face down = brain face up.",
+  "Small steps every day add up.",
+  "Phone face down, focus up.",
   "You showed up today. That's already a win."
 ];
+const screens=[
+  {id:"home",t:"Home Page",d:"FocusLoop name, tagline and Start Studying button"},
+  {id:"goal",t:"Study Goal Setting",d:"Select subject, topic and study duration"},
+  {id:"timer",t:"Focus Timer",d:"Start, pause and reset the study timer"},
+  {id:"distract",t:"Distraction Check",d:"Social media, tiredness, difficult topics, noise, loss of interest"},
+  {id:"recover",t:"Recovery Suggestions",d:"Helpful suggestions based on the selected distraction"},
+  {id:"progress",t:"Progress Page",d:"Study time, completed sessions and encouraging messages"}
+];
+const features=[
+  {i:"bell",t:"Friendly, Positive Reminders",d:"Kind nudges on the home and timer screens.",go:"timer"},
+  {i:"heart",t:"Personalized Recovery Suggestions",d:"Tips matched to what distracted you.",go:"distract"},
+  {i:"sparkle",t:"Small-Win Encouragement",d:"Celebrates every step back to studying.",go:"recover"},
+  {i:"layers",t:"Different Study Durations and Techniques",d:"Pomodoro, sprints, steady and deep work.",go:"goal"},
+  {i:"chart",t:"Simple Progress Tracking",d:"Study time, sessions and streaks at a glance.",go:"progress"},
+  {i:"grid",t:"Study Tools Section",d:"Techniques, sounds and a task breaker.",go:"tools"},
+  {i:"music",t:"Focus Sounds Option",d:"14 offline soundscapes to block out noise.",go:"tools"},
+  {i:"lock",t:"Focus Lock Information Section",d:"How app blocking would work in the full app.",go:"lock"}
+];
 const techniques=[
-  {name:"Pomodoro",min:25,ic:"🍅",d:"25 min focus, then a 5 min break. Great for most subjects."},
-  {name:"Quick Sprint",min:10,ic:"⚡",d:"Just 10 minutes. Perfect when you don't feel like starting."},
-  {name:"Steady Session",min:45,ic:"📘",d:"45 min of study for reading, notes and practice questions."},
-  {name:"Deep Work",min:60,ic:"🧠",d:"60 min for hard topics or exam revision. Take a 10 min break after."}
+  {name:"Quick Sprint",min:10,d:"Just 10 minutes. Perfect when starting feels hard."},
+  {name:"Pomodoro",min:25,d:"25 minutes focus, then a 5 minute break."},
+  {name:"Steady Session",min:45,d:"For reading, notes and practice questions."},
+  {name:"Deep Work",min:60,d:"For hard topics or exam revision."}
 ];
 const distractions={
-  social:{ic:"📱",name:"Social media",short:"Notifications, scrolling, messages",
-    title:"Phone pulled you in? Happens to everyone.",
-    msg:"Apps are designed to grab your attention. It's not a willpower problem, it's a setup problem. Let's fix the setup.",
-    tips:["Put your phone in another room or face down out of reach","Turn on Do Not Disturb until this session ends","Tell friends you'll reply after your session","Write down what you wanted to check, and check it in your break"],
-    action:"Learn how Focus Lock can help block apps during study time.",btn:"Open Focus Lock",do:()=>{go('tools');setTimeout(()=>document.querySelector('.lock').scrollIntoView({behavior:'smooth'}),200)},
+  social:{i:"phone",name:"Social media",short:"Notifications, scrolling, messages",
+    title:"Phone pulled you in? It happens to everyone.",
+    msg:"Apps are designed to grab attention. It's a setup problem, not a willpower problem.",
+    tips:["Put your phone in another room or face down out of reach","Turn on Do Not Disturb until this session ends","Tell friends you'll reply after your session","Write down what you wanted to check and do it in your break"],
+    action:"See how Focus Lock could block apps during study time.",btn:"Open Focus Lock",do:()=>go('lock'),
     win:"You noticed it and came back. That's exactly what the loop is for."},
-  tired:{ic:"😴",name:"Tiredness",short:"Sleepy, low energy, can't think",
+  tired:{i:"moon",name:"Tiredness",short:"Sleepy, low energy, can't think",
     title:"Your brain is asking for a reset.",
-    msg:"Studying while exhausted doesn't work well. A short, proper break will help more than forcing it.",
-    tips:["Stand up, stretch and walk for 2 minutes","Drink a glass of water","Open a window or get some fresh air","Switch to a lighter task like reviewing notes or flashcards"],
+    msg:"Studying while exhausted doesn't work well. A short, proper break helps more than forcing it.",
+    tips:["Stand up, stretch and walk for 2 minutes","Drink a glass of water","Get some fresh air or open a window","Switch to a lighter task like reviewing notes"],
     action:"Take a 5 minute energy break, then come back fresh.",btn:"Start 5 min break",do:()=>{setDuration(5,"Energy break");go('timer');toggleTimer(true)},
     win:"Resting on purpose is smart studying, not giving up."},
-  hard:{ic:"🤯",name:"Difficult topic",short:"Confused, stuck, don't get it",
+  hard:{i:"help",name:"Difficult topics",short:"Confused, stuck, don't get it",
     title:"Stuck is part of learning.",
-    msg:"Feeling confused means you're working on something new. Let's make it smaller and easier to handle.",
-    tips:["Break the topic into 3 tiny parts and do just the first one","Watch a short explainer or check your textbook example","Write down exactly what confuses you to ask your teacher","Try an easier question first to warm up"],
-    action:"Use 'Break it down' to split the topic into small steps.",btn:"Break it down",do:()=>{go('tools');setTimeout(()=>{document.getElementById('todoIn').focus()},250)},
+    msg:"Feeling confused means you're working on something new. Let's make it smaller.",
+    tips:["Break the topic into 3 tiny parts and do only the first","Look at a worked example in your textbook","Write down exactly what confuses you to ask your teacher","Try an easier question first to warm up"],
+    action:"Use Break It Down to split the topic into small steps.",btn:"Break it down",do:()=>{go('tools');setTimeout(()=>todoIn.focus(),250)},
     win:"Every hard topic you push through makes the next one easier."},
-  noise:{ic:"🔊",name:"Noise",short:"Loud room, people talking",
+  noise:{i:"volume",name:"Noise",short:"Loud room, people talking",
     title:"Let's block out the noise.",
-    msg:"Background noise makes it harder to concentrate. A steady sound can cover it up.",
-    tips:["Use headphones with a focus sound","Move to a quieter room if you can","Let family know you need 25 quiet minutes","Use earplugs for reading tasks"],
-    action:"Turn on a calm rain sound to cover background noise.",btn:"Play rain sound",do:()=>{playSound('rain');toast("🌧️ Rain sound on. You can change it on the timer page.")},
+    msg:"Background noise makes concentration harder. A steady sound can cover it.",
+    tips:["Use headphones with a focus sound","Move to a quieter room if you can","Ask family for 25 quiet minutes","Use earplugs for reading tasks"],
+    action:"Turn on gentle rain to cover background noise.",btn:"Play rain sound",do:()=>{playSound('rain');toast("Rain sound on. Change it anytime on the Focus Timer.")},
     win:"You changed your space instead of giving up. Nice problem solving."},
-  bored:{ic:"😐",name:"Loss of interest",short:"Bored, unmotivated, why bother",
+  bored:{i:"meh",name:"Loss of interest",short:"Bored, unmotivated, why bother",
     title:"Motivation comes after starting.",
-    msg:"You don't have to feel like it to begin. Make the task shorter and give yourself a reward.",
-    tips:["Switch to a 10 minute Quick Sprint","Remind yourself why this matters (exam, goal, future you)","Change how you study: draw a mind map, teach it out loud, quiz yourself","Plan a small reward for when you finish"],
+    msg:"You don't have to feel like it to begin. Make the task shorter and plan a reward.",
+    tips:["Switch to a 10 minute Quick Sprint","Remind yourself why this matters to you","Change the method: mind map, teach it aloud, quiz yourself","Plan a small reward for when you finish"],
     action:"Start a 10 minute Quick Sprint. Anyone can do 10 minutes.",btn:"Start 10 min sprint",do:()=>{setDuration(10,"Quick Sprint");go('timer');toggleTimer(true)},
     win:"Doing it even when you didn't feel like it is real discipline."}
 };
@@ -463,133 +642,118 @@ const demoLog=[
 const demoDist={social:6,tired:3,hard:4,noise:2,bored:3};
 
 /* ---------- state ---------- */
-let st={subject:"",topic:"",total:25*60,left:25*60,running:false,iv:null,label:"Pomodoro"};
-let mySessions=[],myDist={},recoveries=0;
-function load(){try{const d=JSON.parse(localStorage.getItem('focusloop')||'{}');mySessions=d.s||[];myDist=d.d||{};recoveries=d.r||0}catch(e){}}
+let st={subject:"",topic:"",total:1500,left:1500,running:false,iv:null,label:"Pomodoro"};
+let mySessions=[],myDist={},recoveries=0,lastDist=null;
+try{const d=JSON.parse(localStorage.getItem('focusloop')||'{}');mySessions=d.s||[];myDist=d.d||{};recoveries=d.r||0}catch(e){}
 function save(){try{localStorage.setItem('focusloop',JSON.stringify({s:mySessions,d:myDist,r:recoveries}))}catch(e){}}
-load();
-
-/* ---------- navigation ---------- */
-function go(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('show',s.id===id));
-  document.querySelectorAll('.links button').forEach(b=>b.classList.toggle('active',b.dataset.go===id||(id==='recover'&&b.dataset.go==='distract')));
-  document.querySelector('.links').classList.remove('open');
-  if(id==='progress')renderProgress();
-  if(id==='timer')document.getElementById('timerReminder').textContent=pick(reminders);
-  if(id==='home')document.getElementById('homeReminder').textContent=pick(reminders);
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-document.querySelectorAll('.links button').forEach(b=>b.onclick=()=>go(b.dataset.go));
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2800)}
 
+/* ---------- navigation ---------- */
+function go(id){
+  let scrollTo=null;if(id==='lock'){id='tools';scrollTo='lockCard'}
+  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('show',s.id===id));
+  document.querySelectorAll('.links button').forEach(b=>b.classList.toggle('active',b.dataset.go===id));
+  document.querySelector('.links').classList.remove('open');
+  if(id==='progress')renderProgress();
+  if(id==='timer')timerReminder.textContent=pick(reminders);
+  if(id==='home')homeReminder.textContent=pick(reminders);
+  if(scrollTo)setTimeout(()=>document.getElementById(scrollTo).scrollIntoView({behavior:'smooth',block:'center'}),80);
+  else window.scrollTo({top:0});
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b)go(b.dataset.go)});
+
+/* ---------- home ---------- */
+screenList.innerHTML=screens.map((s,i)=>`<button class="screen-item" data-go="${s.id}"><span class="n">0${i+1}</span><span class="t"><b>${s.t}</b><small>${s.d}</small></span><span class="go">${ic('arrow',18)}</span></button>`).join('');
+featureGrid.innerHTML=features.map(f=>`<button class="feature" data-go="${f.go}"><span class="icon-box">${ic(f.i,18)}</span><h3>${f.t}</h3><p>${f.d}</p></button>`).join('');
+
 /* ---------- goal ---------- */
 let chosenMin=25;
-function selChip(group,min){document.querySelectorAll(group+' .chip').forEach(c=>c.classList.toggle('sel',+c.dataset.min===min))}
-document.querySelectorAll('#durChips .chip').forEach(c=>c.onclick=()=>{chosenMin=+c.dataset.min;selChip('#durChips',chosenMin)});
-selChip('#durChips',25);
-function techCard(t){
-  const b=document.createElement('div');b.className='card tech';b.style.padding='16px';
-  b.innerHTML=`<div class="row" style="flex-wrap:nowrap;align-items:flex-start"><span style="font-size:1.6rem">${t.ic}</span><div><b>${t.name} · ${t.min} min</b><p class="muted" style="font-size:.9rem">${t.d}</p></div></div>`;
-  b.onclick=()=>{chosenMin=t.min;selChip('#durChips',t.min);setDuration(t.min,t.name);toast(`${t.ic} ${t.name} selected: ${t.min} minutes`)};
-  return b;
+const durs=[{m:10,s:"Quick sprint"},{m:25,s:"Pomodoro"},{m:45,s:"Steady"},{m:60,s:"Deep work"}];
+durOpts.innerHTML=durs.map(d=>`<button class="opt" data-min="${d.m}"><b>${d.m} min</b><small>${d.s}</small></button>`).join('');
+function syncDur(min){
+  chosenMin=min;
+  document.querySelectorAll('#durOpts .opt').forEach(c=>c.classList.toggle('sel',+c.dataset.min===min));
+  document.querySelectorAll('.tech').forEach(c=>c.classList.toggle('sel',+c.dataset.min===min));
 }
-techniques.forEach(t=>{document.getElementById('techListGoal').appendChild(techCard(t));document.getElementById('techListTools').appendChild(techCard(t))});
+durOpts.querySelectorAll('.opt').forEach(c=>c.onclick=()=>syncDur(+c.dataset.min));
+function techHTML(t){return `<button class="tech" data-min="${t.min}"><span class="icon-box">${ic('timer',18)}</span><span><b>${t.name} · ${t.min} min</b><p>${t.d}</p></span></button>`}
+techGoal.innerHTML=techniques.map(techHTML).join('');
+techTools.innerHTML=techniques.map(techHTML).join('');
+document.querySelectorAll('.tech').forEach(b=>b.onclick=()=>{const t=techniques.find(x=>x.min===+b.dataset.min);syncDur(t.min);setDuration(t.min,t.name);toast(`${t.name} selected: ${t.min} minutes`)});
+syncDur(25);
 function startFromGoal(){
-  st.subject=document.getElementById('subject').value;
-  st.topic=document.getElementById('topic').value.trim()||"General revision";
+  st.subject=subject.value;st.topic=topic.value.trim()||"General revision";
   setDuration(chosenMin,techniques.find(t=>t.min===chosenMin)?.name||"Custom");
-  go('timer');toast("Goal set! Press Start when you're ready.");
+  go('timer');toast("Goal set. Press Start when you're ready.");
 }
 
 /* ---------- timer ---------- */
-const C=2*Math.PI*122,arc=document.getElementById('arc');
-arc.style.strokeDasharray=C;
-function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+":"+String(s%60).padStart(2,'0')}
+const C=2*Math.PI*126;arc.style.strokeDasharray=C;
+quickDur.innerHTML=[5,10,25,45,60].map(m=>`<button class="chip" data-min="${m}">${m} min</button>`).join('');
+quickDur.querySelectorAll('.chip').forEach(c=>c.onclick=()=>setDuration(+c.dataset.min,"Custom"));
+const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+":"+String(s%60).padStart(2,'0');
+function setBtn(){startBtn.innerHTML=st.running?ic('pause',18)+'Pause':ic('play',18)+(st.left<st.total&&st.left>0?'Resume':'Start')}
 function draw(){
-  document.getElementById('time').textContent=fmt(st.left);
-  arc.style.strokeDashoffset=C*(1-st.left/st.total);
-  document.getElementById('goalPill').textContent=st.subject?`${st.subject} · ${st.topic}`:"Quick session · no goal set";
-  document.title=st.running?fmt(st.left)+" · FocusLoop":"FocusLoop";
+  time.textContent=fmt(st.left);arc.style.strokeDashoffset=C*(1-st.left/st.total);
+  goalPill.textContent=st.subject?`${st.subject} · ${st.topic}`:"Quick session";
+  document.title=st.running?fmt(st.left)+" · FocusLoop":"FocusLoop";setBtn();
 }
 function setDuration(min,label){
   pauseTimer();st.total=st.left=min*60;st.label=label||"Custom";
-  document.getElementById('tlabel').textContent=st.label+" · "+min+" min";
-  selChip('#quickDur',min);draw();
+  tlabel.textContent=`${st.label} · ${min} min`;
+  quickDur.querySelectorAll('.chip').forEach(c=>c.classList.toggle('sel',+c.dataset.min===min));draw();
 }
-document.querySelectorAll('#quickDur .chip').forEach(c=>c.onclick=()=>setDuration(+c.dataset.min,"Custom"));
-function toggleTimer(forceStart){
-  if(st.running&&!forceStart){pauseTimer();document.getElementById('tlabel').textContent="Paused · take a breath";return}
-  if(st.running)return;
-  if(st.left<=0)st.left=st.total;
-  st.running=true;document.getElementById('startBtn').textContent="Pause";
-  document.getElementById('tlabel').textContent="Focusing...";
-  st.iv=setInterval(()=>{
-    st.left--;draw();
-    if(st.left%300===0&&st.left>0)document.getElementById('timerReminder').textContent=pick(reminders);
-    if(st.left<=0)finish();
-  },1000);
+function toggleTimer(force){
+  if(st.running&&!force){pauseTimer();tlabel.textContent="Paused · take a breath";return}
+  if(st.running)return;if(st.left<=0)st.left=st.total;
+  st.running=true;tlabel.textContent="Focusing";draw();
+  st.iv=setInterval(()=>{st.left--;draw();if(st.left%300===0&&st.left>0)timerReminder.textContent=pick(reminders);if(st.left<=0)finish()},1000);
 }
-function pauseTimer(){clearInterval(st.iv);st.running=false;document.getElementById('startBtn').textContent=st.left<st.total&&st.left>0?"Resume":"Start";draw()}
-function resetTimer(){pauseTimer();st.left=st.total;document.getElementById('startBtn').textContent="Start";document.getElementById('tlabel').textContent=st.label+" · "+st.total/60+" min";draw()}
+function pauseTimer(){clearInterval(st.iv);st.running=false;draw()}
+function resetTimer(){pauseTimer();st.left=st.total;tlabel.textContent=`${st.label} · ${st.total/60} min`;draw()}
 function finish(){
-  pauseTimer();st.left=0;draw();beep();
-  const m=Math.round(st.total/60);
+  pauseTimer();st.left=0;draw();beep();const m=Math.round(st.total/60);
   if(st.label!=="Energy break"){
     mySessions.unshift({s:st.subject||"Quick session",t:st.topic||st.label,m,when:"Today"});save();
-    document.getElementById('winMsg').textContent=pick([
-      `You studied for ${m} minutes. That's a real win. Be proud of it.`,
-      `${m} focused minutes done! Your future self says thank you.`,
-      `Another loop complete. Take a short break, you earned it.`]);
-  }else document.getElementById('winMsg').textContent="Break's over. Feeling a bit fresher? Let's go again.";
-  document.getElementById('winModal').classList.add('show');
-  document.getElementById('startBtn').textContent="Start";
-  document.getElementById('tlabel').textContent="Done!";
+    winMsg.textContent=pick([`You studied for ${m} minutes. That's a real win.`,`${m} focused minutes done. Your future self says thank you.`,`Another loop complete. Take a short break, you earned it.`]);
+  }else winMsg.textContent="Break's over. Feeling fresher? Let's go again.";
+  winModal.classList.add('show');tlabel.textContent="Done";
 }
-function closeWin(to){document.getElementById('winModal').classList.remove('show');st.left=st.total;draw();go(to)}
-function gotDistracted(){pauseTimer();document.getElementById('tlabel').textContent="Paused · let's sort this out";go('distract')}
+function closeWin(to){winModal.classList.remove('show');st.left=st.total;draw();go(to)}
+function gotDistracted(){pauseTimer();tlabel.textContent="Paused · let's sort this out";go('distract')}
 function backToStudy(){
   recoveries++;save();go('timer');
-  if(st.left>0&&st.left<st.total){toggleTimer(true);toast("Welcome back! Timer resumed. 💪")}
-  else toast("Welcome back! Press Start when ready. 💪");
+  if(st.left>0&&st.left<st.total){toggleTimer(true);toast("Welcome back. Timer resumed.")}else toast("Welcome back. Press Start when ready.");
 }
 
 /* ---------- distraction & recovery ---------- */
-Object.entries(distractions).forEach(([k,d])=>{
-  const b=document.createElement('button');b.className='dcard';
-  b.innerHTML=`<div class="ic">${d.ic}</div><b>${d.name}</b><span>${d.short}</span>`;
-  b.onclick=()=>showRecovery(k);document.getElementById('dList').appendChild(b);
-});
+dList.innerHTML=Object.entries(distractions).map(([k,d])=>`<button class="dcard" data-k="${k}"><span class="icon-box">${ic(d.i,22)}</span><span><b>${d.name}</b><br><span>${d.short}</span></span><span class="go">Get suggestions ${ic('arrow',16)}</span></button>`).join('');
+dList.querySelectorAll('.dcard').forEach(b=>b.onclick=()=>showRecovery(b.dataset.k));
 function showRecovery(k){
-  const d=distractions[k];myDist[k]=(myDist[k]||0)+1;save();
-  recIcon.textContent=d.ic;recTitle.textContent=d.title;recMsg.textContent=d.msg;
-  recTips.innerHTML="";
-  d.tips.forEach(t=>{const r=document.createElement('div');r.className='tip';r.innerHTML=`<div class="tick"></div><div>${t}</div>`;
-    r.querySelector('.tick').onclick=e=>{e.target.classList.toggle('on');e.target.textContent=e.target.classList.contains('on')?'✓':'';if(e.target.classList.contains('on'))toast(pick(["Nice!","Good move!","That's it!","Small win! 🌱"]))};
-    recTips.appendChild(r)});
-  recActionText.textContent=d.action;recActionBtn.textContent=d.btn;recActionBtn.onclick=d.do;
-  recWin.textContent=d.win;go('recover');
+  const d=distractions[k];lastDist=k;myDist[k]=(myDist[k]||0)+1;save();
+  recEmpty.style.display='none';recBody.style.display='block';
+  recIcon.innerHTML=ic(d.i,22);recTitle.textContent=d.title;recMsg.textContent=d.msg;
+  recLead.textContent=`Because you selected “${d.name}”, here's what can help.`;
+  recTips.innerHTML=d.tips.map(t=>`<button class="tip"><span class="tick">${ic('check',14)}</span><span>${t}</span></button>`).join('');
+  recTips.querySelectorAll('.tip').forEach(r=>r.onclick=()=>{r.classList.toggle('on');if(r.classList.contains('on'))toast(pick(["Nice.","Good move.","Small win."]))});
+  recActionText.textContent=d.action;recActionBtn.textContent=d.btn;recActionBtn.onclick=d.do;recWin.textContent=d.win;
+  go('recover');
 }
 
 /* ---------- progress ---------- */
 function renderProgress(){
   const todayMin=mySessions.reduce((a,s)=>a+s.m,0);
-  const week=[...demoWeek,{d:"Today",m:todayMin,today:true}];
-  const max=Math.max(...week.map(w=>w.m),30);
+  const week=[...demoWeek,{d:"Today",m:todayMin,today:true}],max=Math.max(...week.map(w=>w.m),30);
   bars.innerHTML=week.map(w=>`<div class="bar ${w.today?'today':''}"><em>${w.m}</em><i style="height:${w.m/max*100}%"></i><small>${w.d}</small></div>`).join("");
   const total=week.reduce((a,w)=>a+w.m,0);
-  sTime.textContent=Math.floor(total/60)+"h "+(total%60)+"m";
-  sSessions.textContent=12+mySessions.length;
-  sRecover.textContent=9+recoveries;
-  sStreak.textContent=todayMin>0?"7 🔥":"6 🔥";
-  const dist={};Object.keys(demoDist).forEach(k=>dist[k]=demoDist[k]+(myDist[k]||0));
-  const dm=Math.max(...Object.values(dist));
-  dStats.innerHTML=Object.entries(dist).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="hbar"><div style="display:flex;justify-content:space-between"><span>${distractions[k].ic} ${distractions[k].name}</span><b>${v}</b></div><div class="tr"><span style="width:${v/dm*100}%"></span></div></div>`).join("");
-  const all=[...mySessions.map(s=>({...s,mine:1})),...demoLog].slice(0,8);
-  log.innerHTML=all.map(s=>`<li><span><b>${s.s}</b> · ${s.t}</span><span>${s.m} min · ${s.when} ${s.mine?'<span class="badge">New</span>':''}</span></li>`).join("");
-  encourage.textContent=mySessions.length?
-    `🌟 You finished ${mySessions.length} session${mySessions.length>1?'s':''} today. Keep the streak going!`:
-    pick(["🌟 You bounced back from distractions 9 times this week. That's the real skill.","🌟 Wednesday was your best day. You can do it again!","🌟 Every session counts, even the short ones."]);
+  sTime.textContent=`${Math.floor(total/60)}h ${total%60}m`;sSessions.textContent=12+mySessions.length;
+  sRecover.textContent=9+recoveries;sStreak.textContent=(todayMin>0?7:6)+" days";
+  const dist={};Object.keys(demoDist).forEach(k=>dist[k]=demoDist[k]+(myDist[k]||0));const dm=Math.max(...Object.values(dist));
+  dStats.innerHTML=Object.entries(dist).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="hbar"><div class="top"><span>${ic(distractions[k].i,16)}${distractions[k].name}</span><b>${v}</b></div><div class="tr"><i style="width:${v/dm*100}%"></i></div></div>`).join("");
+  log.innerHTML=[...mySessions.map(s=>({...s,mine:1})),...demoLog].slice(0,8).map(s=>`<li><span><b style="font-weight:600">${s.s}</b> <span class="muted">· ${s.t}</span></span><span class="row" style="gap:10px;flex-wrap:nowrap"><span class="muted small">${s.m} min · ${s.when}</span>${s.mine?'<span class="tag green">New</span>':''}</span></li>`).join("");
+  encourage.textContent=mySessions.length?`You finished ${mySessions.length} session${mySessions.length>1?'s':''} today. Keep the streak going.`:
+    pick(["You bounced back from distractions 9 times this week. That's the real skill.","Wednesday was your best day. You can do it again.","Every session counts, even the short ones."]);
 }
 
 /* ---------- focus sounds (Web Audio engine, fully offline) ---------- */
@@ -746,32 +910,39 @@ function playSound(k){
   const t=actx.currentTime;bus.gain.setValueAtTime(0,t);bus.gain.linearRampToValueAtTime(s.lv,t+1.5);
   current=k;renderSounds();
 }
+document.querySelectorAll('.vol-s').forEach(v=>v.oninput=()=>{document.querySelectorAll('.vol-s').forEach(o=>o.value=v.value);if(master)master.gain.setTargetAtTime(volume(),actx.currentTime,.05)});
+function beep(){try{ctx();[0,.25,.5].forEach(t=>{const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=660+t*400;g.gain.setValueAtTime(.2,actx.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+t+.22);o.connect(g).connect(actx.destination);o.start(actx.currentTime+t);o.stop(actx.currentTime+t+.25)})}catch(e){}}
+
+
+
+/* ---------- sound UI (overrides engine renderer) ---------- */
+const soundIcon={rain:'rain',storm:'storm',ocean:'waves',forest:'tree',stream:'droplet',wind:'wind',fire:'flame',night:'moon',lofi:'headphones',alpha:'sine',drone:'orbit',white:'bars',pink:'bars',brown:'bars'};
 function renderSounds(){
   const cats=[...new Set(sounds.map(s=>s.cat))];
   document.querySelectorAll('.sound-panel').forEach(el=>{
     el.innerHTML=cats.map(c=>`<div class="snd-group"><h4>${c}</h4><div class="snd-grid">${sounds.filter(s=>s.cat===c).map(s=>
-      `<button class="snd${current===s.k?' on':''}" data-k="${s.k}"><span class="ic">${s.ic}</span><span class="tx"><b>${s.n}</b><small>${s.d}</small></span>${current===s.k?'<span class="eq"><i></i><i></i><i></i><i></i></span>':''}</button>`).join('')}</div></div>`).join('');
+      `<button class="snd${current===s.k?' on':''}" data-k="${s.k}" aria-pressed="${current===s.k}"><span class="ic">${ic(soundIcon[s.k],17)}</span><span class="tx"><b>${s.n}</b><small>${s.d}</small></span>${current===s.k?'<span class="eq"><i></i><i></i><i></i><i></i></span>':''}</button>`).join('')}</div></div>`).join('');
     el.querySelectorAll('.snd').forEach(b=>b.onclick=()=>playSound(b.dataset.k));
   });
   const s=sounds.find(x=>x.k===current);
-  document.querySelectorAll('.now-playing').forEach(n=>n.innerHTML=s?`<span>Now playing: <b>${s.ic} ${s.n}</b></span><button class="btn small ghost" onclick="stopSound()">Stop</button>`:`<span class="muted">No sound playing. Tap one to start.</span>`);
+  document.querySelectorAll('.now-playing').forEach(n=>n.innerHTML=s?`<span>Now playing <b style="font-weight:600">${s.n}</b></span><button class="btn sm secondary" onclick="stopSound()">${ic('pause',14)}Stop</button>`:`<span class="muted">No sound playing. Pick one below.</span>`);
 }
-document.querySelectorAll('.vol-s').forEach(v=>v.oninput=()=>{document.querySelectorAll('.vol-s').forEach(o=>o.value=v.value);if(master)master.gain.setTargetAtTime(volume(),actx.currentTime,.05)});
 renderSounds();
-function beep(){try{ctx();[0,.25,.5].forEach(t=>{const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=660+t*400;g.gain.setValueAtTime(.2,actx.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+t+.22);o.connect(g).connect(actx.destination);o.start(actx.currentTime+t);o.stop(actx.currentTime+t+.25)})}catch(e){}}
 
 /* ---------- tools ---------- */
 let todos=[{t:"Read the chapter summary",done:true},{t:"Do 3 practice questions",done:false},{t:"Write 5 key points from memory",done:false}];
-function renderTodo(){todo.innerHTML="";todos.forEach((x,i)=>{const li=document.createElement('li');li.className=x.done?'done':'';
-  li.innerHTML=`<div class="tick ${x.done?'on':''}">${x.done?'✓':''}</div><span style="flex:1">${x.t}</span><button style="background:none;color:var(--muted)">✕</button>`;
-  li.querySelector('.tick').onclick=()=>{x.done=!x.done;if(x.done)toast("Step done! Small win 🌱");renderTodo()};
-  li.querySelector('button').onclick=()=>{todos.splice(i,1);renderTodo()};todo.appendChild(li)})}
+function renderTodo(){
+  todo.innerHTML=todos.map((x,i)=>`<li class="${x.done?'done':''}"><button class="tick" data-i="${i}" aria-label="Mark done">${ic('check',14)}</button><span>${x.t}</span><button class="icon-btn" data-del="${i}" aria-label="Remove">${ic('x',16)}</button></li>`).join('');
+  todo.querySelectorAll('.tick').forEach(b=>b.onclick=()=>{const x=todos[+b.dataset.i];x.done=!x.done;if(x.done)toast("Step done. Small win.");renderTodo()});
+  todo.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{todos.splice(+b.dataset.del,1);renderTodo()});
+}
 function addTodo(){const v=todoIn.value.trim();if(!v)return;todos.push({t:v,done:false});todoIn.value="";renderTodo()}
 todoIn.addEventListener('keydown',e=>{if(e.key==='Enter')addTodo()});
 renderTodo();
-lockToggle.onclick=()=>{const on=lockToggle.classList.toggle('on');lockState.textContent=on?'On (demo)':'Off';toast(on?"🔒 Focus Lock on (demo). In the full app, distracting apps would be paused.":"Focus Lock off")};
+lockToggle.onclick=()=>{const on=lockToggle.classList.toggle('on');lockToggle.setAttribute('aria-checked',on);lockState.textContent=on?'On (demo)':'Off';toast(on?"Focus Lock on (demo). In the full app, distracting apps would pause.":"Focus Lock off")};
 
 /* ---------- init ---------- */
+paintIcons();
 setDuration(25,"Pomodoro");
 go('home');
 </script>
